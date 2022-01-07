@@ -11,7 +11,6 @@ services:
       - MINIO_SECRET_KEY=password
     volumes:
       - ./minio/data:/data
-
   ruoyi-elasticsearch:
     image: richardgong1987/docker_ruoyi-elasticsearch
     restart: always
@@ -30,7 +29,6 @@ services:
       - ./elasticsearch/data01:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
-
   ruoyi-redis:
     restart: always
     image: richardgong1987/docker_ruoyi-redis
@@ -53,51 +51,4 @@ services:
       - ruoyi-gateway
     links:
       - ruoyi-gateway
-  ruoyi-gateway:
-    image: richardgong1987/docker_ruoyi-gateway
-    ports:
-      - "8086:8086"
-    depends_on:
-      - ruoyi-redis
-    links:
-      - ruoyi-redis
-  ruoyi-auth:
-    image: richardgong1987/docker_ruoyi-auth
-    ports:
-      - "9201:9201"
-    depends_on:
-      - ruoyi-redis
-    links:
-      - ruoyi-redis
-  ruoyi-modules-system:
-    image: richardgong1987/docker_ruoyi-modules-system
-    ports:
-      - "9202:9202"
-    depends_on:
-      - ruoyi-redis
-    links:
-      - ruoyi-redis
-  ruoyi-modules-gen:
-    image: richardgong1987/docker_ruoyi-modules-gen
-    ports:
-      - "9203:9203"
-  ruoyi-modules-job:
-    image: richardgong1987/docker_ruoyi-modules-job
-    ports:
-      - "9204:9204"
-  ruoyi-modules-file:
-    image: richardgong1987/docker_ruoyi-modules-file
-    ports:
-      - "9205:9205"
-    volumes:
-    - ./ruoyi/uploadPath:/home/ruoyi/uploadPath
-  ruoyi-visual-monitor:
-    image: richardgong1987/docker_ruoyi-visual-monitor
-    ports:
-      - "9206:9206"
-  ruoyi-modules-education-admin:
-    image: richardgong1987/docker_ruoyi-modules-education-admin
-    ports:
-      - "9207:9207"
-    volumes:
-      - ./ruoyi/uploadPath:/home/ruoyi/uploadPath
+
