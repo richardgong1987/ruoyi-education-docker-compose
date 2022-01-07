@@ -1,38 +1,5 @@
 version : '3.8'
 services:
-  ruoyi-nacos:
-    image: richardgong1987/docker_ruoyi-nacos
-    environment:
-      - MODE=standalone
-    volumes:
-      - ./nacos/logs/:/home/nacos/logs
-      - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
-    ports:
-      - "8848:8848"
-      - "9848:9848"
-      - "9849:9849"
-    depends_on:
-      - ruoyi-mysql
-  ruoyi-mysql:
-    image: richardgong1987/docker_ruoyi-mysql
-    restart: always
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./mysql/conf:/etc/mysql/conf.d
-      - ./mysql/logs:/logs
-      - ./mysql/data:/var/lib/mysql
-    command: [
-        'mysqld',
-        '--innodb-buffer-pool-size=80M',
-        '--character-set-server=utf8mb4',
-        '--collation-server=utf8mb4_unicode_ci',
-        '--default-time-zone=+8:00',
-        '--lower-case-table-names=1'
-    ]
-    environment:
-      MYSQL_DATABASE: 'ry-cloud'
-      MYSQL_ROOT_PASSWORD: password
   ruoyi-minio:
     image: richardgong1987/docker_ruoyi-minio
     restart: always
