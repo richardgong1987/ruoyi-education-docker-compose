@@ -1,0 +1,141 @@
+version : '3.8'
+services:
+  ruoyi-nacos:
+    image: richardgong1987/docker_ruoyi-nacos
+    environment:
+      - MODE=standalone
+    volumes:
+      - ./nacos/logs/:/home/nacos/logs
+      - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+    depends_on:
+      - ruoyi-mysql
+  ruoyi-mysql:
+    image: richardgong1987/docker_ruoyi-mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/logs:/logs
+      - ./mysql/data:/var/lib/mysql
+    command: [
+        'mysqld',
+        '--innodb-buffer-pool-size=80M',
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci',
+        '--default-time-zone=+8:00',
+        '--lower-case-table-names=1'
+    ]
+    environment:
+      MYSQL_DATABASE: 'ry-cloud'
+      MYSQL_ROOT_PASSWORD: password
+  ruoyi-minio:
+    image: richardgong1987/docker_ruoyi-minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - MINIO_ACCESS_KEY=admin
+      - MINIO_SECRET_KEY=password
+    volumes:
+      - ./minio/data:/data
+
+  ruoyi-elasticsearch:
+    image: richardgong1987/docker_ruoyi-elasticsearch
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./elasticsearch/data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  ruoyi-redis:
+    image: richardgong1987/docker_ruoyi-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/conf/redis.conf:/home/ruoyi/redis/redis.conf
+      - ./redis/data:/data
+    command: redis-server /home/ruoyi/redis/redis.conf
+  ruoyi-nginx:
+    image: richardgong1987/docker_ruoyi-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - ruoyi-gateway
+    links:
+      - ruoyi-gateway
+  ruoyi-gateway:
+    image: richardgong1987/docker_ruoyi-gateway
+    ports:
+      - "8086:8086"
+    depends_on:
+      - ruoyi-redis
+    links:
+      - ruoyi-redis
+  ruoyi-auth:
+    image: richardgong1987/docker_ruoyi-auth
+    ports:
+      - "9201:9201"
+    depends_on:
+      - ruoyi-redis
+    links:
+      - ruoyi-redis
+  ruoyi-modules-system:
+    image: richardgong1987/docker_ruoyi-modules-system
+    ports:
+      - "9202:9202"
+    depends_on:
+      - ruoyi-redis
+      - ruoyi-mysql
+    links:
+      - ruoyi-redis
+      - ruoyi-mysql
+  ruoyi-modules-gen:
+    image: richardgong1987/docker_ruoyi-modules-gen
+    ports:
+      - "9203:9203"
+    depends_on:
+      - ruoyi-mysql
+    links:
+      - ruoyi-mysql
+  ruoyi-modules-job:
+    image: richardgong1987/docker_ruoyi-modules-job
+    ports:
+      - "9204:9204"
+    depends_on:
+      - ruoyi-mysql
+    links:
+      - ruoyi-mysql
+  ruoyi-modules-file:
+    image: richardgong1987/docker_ruoyi-modules-file
+    ports:
+      - "9205:9205"
+    volumes:
+    - ./ruoyi/uploadPath:/home/ruoyi/uploadPath
+  ruoyi-visual-monitor:
+    image: richardgong1987/docker_ruoyi-visual-monitor
+    ports:
+      - "9206:9206"
+  ruoyi-modules-education-admin:
+    image: richardgong1987/docker_ruoyi-modules-education-admin
+    ports:
+      - "9207:9207"
+    volumes:
+      - ./ruoyi/uploadPath:/home/ruoyi/uploadPath
