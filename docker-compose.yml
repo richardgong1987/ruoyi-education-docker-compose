@@ -75,26 +75,16 @@ services:
       - "9202:9202"
     depends_on:
       - ruoyi-redis
-      - ruoyi-mysql
     links:
       - ruoyi-redis
-      - ruoyi-mysql
   ruoyi-modules-gen:
     image: richardgong1987/docker_ruoyi-modules-gen
     ports:
       - "9203:9203"
-    depends_on:
-      - ruoyi-mysql
-    links:
-      - ruoyi-mysql
   ruoyi-modules-job:
     image: richardgong1987/docker_ruoyi-modules-job
     ports:
       - "9204:9204"
-    depends_on:
-      - ruoyi-mysql
-    links:
-      - ruoyi-mysql
   ruoyi-modules-file:
     image: richardgong1987/docker_ruoyi-modules-file
     ports:
