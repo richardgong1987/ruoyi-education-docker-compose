@@ -1,34 +1,5 @@
 version : '3.8'
 services:
-  ruoyi-minio:
-    image: richardgong1987/docker_ruoyi-minio
-    restart: always
-    ports:
-      - '9000:9000'
-      - '9001:9001'
-    environment:
-      - MINIO_ACCESS_KEY=admin
-      - MINIO_SECRET_KEY=password
-    volumes:
-      - ./minio/data:/data
-  ruoyi-elasticsearch:
-    image: richardgong1987/docker_ruoyi-elasticsearch
-    restart: always
-    environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es02,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ./elasticsearch/data01:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
   ruoyi-redis:
     restart: always
     image: richardgong1987/docker_ruoyi-redis
