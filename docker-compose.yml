@@ -13,9 +13,35 @@ services:
     restart: always
     image: richardgong1987/docker_ruoyi-nginx
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/logs:/var/log/nginx
       - ./nginx/conf.d:/etc/nginx/conf.d
+
+  ruoyi-gateway:
+    restart: always
+    image: richardgong1987/docker_ruoyi-gateway
+    ports:
+      - "8086:8086"
+  ruoyi-ruoyi-auth:
+    restart: always
+    image: richardgong1987/docker_ruoyi-auth
+    ports:
+      - "9201:9201"
+  ruoyi-ruoyi-modules-system:
+    restart: always
+    image: richardgong1987/docker_ruoyi-modules-system
+    ports:
+      - "9203:9203"
+  ruoyi-ruoyi-modules-file:
+    restart: always
+    image: richardgong1987/docker_ruoyi-modules-file
+    ports:
+      - "9300:9300"
+  ruoyi-modules-education-admin:
+    restart: always
+    image: richardgong1987/docker_ruoyi-modules-education-admin
+    ports:
+      - "9500:9500"
 
