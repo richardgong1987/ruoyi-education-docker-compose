@@ -2,7 +2,7 @@ version : '3.8'
 services:
   ruoyi-redis:
     restart: always
-    image: richardgong1987/docker_ruoyi-redis:v2022_01_31_15_44
+    image: richardgong1987/docker_ruoyi-redis
     ports:
       - "6379:6379"
     volumes:
