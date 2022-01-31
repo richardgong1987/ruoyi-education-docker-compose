@@ -2,7 +2,7 @@ version : '3.8'
 services:
   ruoyi-redis:
     restart: always
-    image: richardgong1987/docker_ruoyi-redis:latest
+    image: richardgong1987/docker_ruoyi-redis:v2022_01_31_15_44
     ports:
       - "6379:6379"
     volumes:
@@ -11,7 +11,7 @@ services:
     command: redis-server /home/ruoyi/redis/redis.conf
   ruoyi-nginx:
     restart: always
-    image: richardgong1987/docker_ruoyi-nginx:latest
+    image: richardgong1987/docker_ruoyi-nginx:v2022_01_31_15_44
     ports:
       - "80:80"
     volumes:
@@ -21,27 +21,27 @@ services:
 
   ruoyi-gateway:
     restart: always
-    image: richardgong1987/docker_ruoyi-gateway:latest
+    image: richardgong1987/docker_ruoyi-gateway:v2022_01_31_15_44
     ports:
       - "8086:8086"
   ruoyi-ruoyi-auth:
     restart: always
-    image: richardgong1987/docker_ruoyi-auth:latest
+    image: richardgong1987/docker_ruoyi-auth:v2022_01_31_15_44
     ports:
       - "9201:9201"
   ruoyi-ruoyi-modules-system:
     restart: always
-    image: richardgong1987/docker_ruoyi-modules-system:latest
+    image: richardgong1987/docker_ruoyi-modules-system:v2022_01_31_15_44
     ports:
       - "9203:9203"
   ruoyi-ruoyi-modules-file:
     restart: always
-    image: richardgong1987/docker_ruoyi-modules-file:latest
+    image: richardgong1987/docker_ruoyi-modules-file:v2022_01_31_15_44
     ports:
       - "9300:9300"
   ruoyi-modules-education-admin:
     restart: always
-    image: richardgong1987/docker_ruoyi-modules-education-admin:latest
+    image: richardgong1987/docker_ruoyi-modules-education-admin:v2022_01_31_15_44
     ports:
       - "9500:9500"
 
