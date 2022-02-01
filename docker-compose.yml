@@ -10,7 +10,7 @@ services:
     command: redis-server /home/ruoyi/redis/redis.conf
   ruoyi-nginx:
     restart: always
-    image: richardgong1987/docker_ruoyi-nginx:v2022_01_31_15_44
+    image: richardgong1987/docker_ruoyi-nginx:latest
     ports:
       - "80:80"
     volumes:
