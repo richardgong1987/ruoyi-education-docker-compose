@@ -18,7 +18,7 @@ services:
       - ./nginx/logs:/var/log/nginx
       - ./nginx/conf.d:/etc/nginx/conf.d
 
-  ruoyi-modules-education-admin:
+  docker_ruoyi-vue:
     restart: always
     image: richardgong1987/docker_ruoyi-vue:latest
     ports:
