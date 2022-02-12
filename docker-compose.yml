@@ -1,13 +1,13 @@
 version : '3.8'
 services:
-  ruoyi-redis:
-    restart: always
-    image: richardgong1987/docker_ruoyi-redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - ./redis/data:/data
-    command: redis-server /home/ruoyi/redis/redis.conf
+#  ruoyi-redis:
+#    restart: always
+#    image: richardgong1987/docker_ruoyi-redis
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - ./redis/data:/data
+#    command: redis-server /home/ruoyi/redis/redis.conf
   ruoyi-nginx:
     restart: always
     image: richardgong1987/docker_ruoyi-vue-nginx:latest
