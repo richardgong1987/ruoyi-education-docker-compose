@@ -10,7 +10,7 @@ services:
     command: redis-server /home/ruoyi/redis/redis.conf
   ruoyi-nginx:
     restart: always
-    image: richardgong1987/docker_ruoyi-nginx:latest
+    image: richardgong1987/docker_ruoyi-vue-nginx:latest
     ports:
       - "80:80"
     volumes:
@@ -18,29 +18,9 @@ services:
       - ./nginx/logs:/var/log/nginx
       - ./nginx/conf.d:/etc/nginx/conf.d
 
-#  ruoyi-gateway:
-#    restart: always
-#    image: richardgong1987/docker_ruoyi-gateway:v2022_01_31_15_44
-#    ports:
-#      - "8086:8086"
-#  ruoyi-ruoyi-auth:
-#    restart: always
-#    image: richardgong1987/docker_ruoyi-auth:v2022_01_31_15_44
-#    ports:
-#      - "9201:9201"
-#  ruoyi-ruoyi-modules-system:
-#    restart: always
-#    image: richardgong1987/docker_ruoyi-modules-system:v2022_01_31_15_44
-#    ports:
-#      - "9203:9203"
-#  ruoyi-ruoyi-modules-file:
-#    restart: always
-#    image: richardgong1987/docker_ruoyi-modules-file:v2022_01_31_15_44
-#    ports:
-#      - "9300:9300"
-#  ruoyi-modules-education-admin:
-#    restart: always
-#    image: richardgong1987/docker_ruoyi-modules-education-admin:v2022_01_31_15_44
-#    ports:
-#      - "9500:9500"
+  ruoyi-modules-education-admin:
+    restart: always
+    image: richardgong1987/docker_ruoyi-vue:latest
+    ports:
+      - "8080:8080"
 
